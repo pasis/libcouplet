@@ -282,6 +282,8 @@ int xmpp_conn_release(xmpp_conn_t * const conn)
 		xmpp_free(ctx, conn->stream_id);
 	if (conn->lang)
 		xmpp_free(ctx, conn->lang);
+	if (conn->tls)
+		tls_free(conn->tls);
 	xmpp_free(ctx, conn);
 
 	return 1;

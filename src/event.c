@@ -405,3 +405,35 @@ void xmpp_stop(xmpp_ctx_t *ctx)
 	if (ctx->loop_status == XMPP_LOOP_RUNNING)
 		ctx->loop_status = XMPP_LOOP_QUIT;
 }
+
+/** Resume the event loop.
+ *  This will resume a previously stopped event loop.
+ *
+ *  @param ctx a Strophe context object
+ *
+ *  @ingroup EventLoop
+ */
+void xmpp_resume(xmpp_ctx_t *ctx)
+{
+	xmpp_debug(ctx, "event", "Resuming event loop.");
+
+	switch (ctx->loop_status) {
+	case XMPP_LOOP_NOTSTARTED:
+		// This is the first time the loop is started, we just hand over
+		// to xmpp_run.
+
+		xmpp_run(ctx);
+		break;
+	case XMPP_LOOP_QUIT:
+		// Loop has been stopped before -- thread will still exist, so
+		// we just resume manually.
+
+		ctx->loop_status = XMPP_LOOP_RUNNING;
+		while (ctx->loop_status == XMPP_LOOP_RUNNING)
+			xmpp_run_once(ctx, DEFAULT_TIMEOUT);
+
+		break;
+	default:
+		xmpp_error(ctx, "event", "Attempt to resume a running loop");
+	};
+}

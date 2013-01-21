@@ -208,6 +208,7 @@ int tls_set_credentials(tls_t *tls, const char *cafilename)
 
 int tls_start(tls_t *tls)
 {
+    xmpp_ctx_t *ctx = tls->ctx;
     ULONG ctxtreq = 0, ctxtattr = 0;
     SecBufferDesc sbdin, sbdout;
     SecBuffer sbin[2], sbout[1];
@@ -218,13 +219,13 @@ int tls_start(tls_t *tls)
     /* search the ctx's conns for our sock, and use the domain there as our
      * name */
     {
-	list_t *listentry = list_get_first(tls->ctx->connlist);
+	list_t *listentry = list_get_first(ctx->connlist);
 
 	while (listentry) {
 	    xmpp_conn_t *conn = (xmpp_conn_t *)listentry->data;
 
 	    if (conn->sock == tls->sock) {
-		name = strdup(conn->domain);
+		name = xmpp_strdup(ctx, conn->domain);
 		listentry = NULL;
 	    } else {
 		listentry = list_get_next(tls->ctx->connlist, listentry);
@@ -247,7 +248,7 @@ int tls_start(tls_t *tls)
 
     memset(&(sbin[0]), 0, sizeof(sbin[0]));
     sbin[0].BufferType = SECBUFFER_TOKEN;
-    sbin[0].pvBuffer = xmpp_alloc(tls->ctx, tls->spi->cbMaxToken);
+    sbin[0].pvBuffer = xmpp_alloc(ctx, tls->spi->cbMaxToken);
     sbin[0].cbBuffer = tls->spi->cbMaxToken;
 
     memset(&(sbin[1]), 0, sizeof(sbin[1]));
@@ -353,7 +354,11 @@ int tls_start(tls_t *tls)
 	}
     }
 
-    xmpp_free(tls->ctx, sbin[0].pvBuffer);
+    /* free resources */
+    xmpp_free(ctx, sbin[0].pvBuffer);
+    if (name != NULL) {
+        xmpp_free(ctx, name);
+    }
 
     if (ret != SEC_E_OK) {
 	tls->lasterror = ret;
@@ -365,16 +370,16 @@ int tls_start(tls_t *tls)
 
     tls->recvbuffermaxlen = tls->spcss.cbHeader + tls->spcss.cbMaximumMessage
 			    + tls->spcss.cbTrailer;
-    tls->recvbuffer       = xmpp_alloc(tls->ctx, tls->recvbuffermaxlen);
+    tls->recvbuffer       = xmpp_alloc(ctx, tls->recvbuffermaxlen);
     tls->recvbufferpos    = 0;
 
     tls->sendbuffermaxlen = tls->spcss.cbHeader + tls->spcss.cbMaximumMessage
 			    + tls->spcss.cbTrailer;
-    tls->sendbuffer       = xmpp_alloc(tls->ctx, tls->sendbuffermaxlen);
+    tls->sendbuffer       = xmpp_alloc(ctx, tls->sendbuffermaxlen);
     tls->sendbufferpos    = 0;
     tls->sendbufferlen    = 0;
 
-    tls->readybuffer      = xmpp_alloc(tls->ctx, tls->spcss.cbMaximumMessage);
+    tls->readybuffer      = xmpp_alloc(ctx, tls->spcss.cbMaximumMessage);
     tls->readybufferpos   = 0;
     tls->readybufferlen   = 0;
 

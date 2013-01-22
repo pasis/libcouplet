@@ -53,12 +53,13 @@
 #include "thread.h"
 #include "list.h"
 
+
 #ifndef DEFAULT_TIMEOUT
 /** @def DEFAULT_TIMEOUT
  *  The default timeout in milliseconds for the event loop.
  *  This is set to 1 millisecond.
  */
-#define DEFAULT_TIMEOUT 1
+#define DEFAULT_TIMEOUT 20
 #endif
 
 /** Run send loop once.

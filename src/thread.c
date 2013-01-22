@@ -30,6 +30,10 @@
 #include "common.h"
 #include "thread.h"
 
+/* Caution:
+ * Windows code is untested
+ */
+
 struct _mutex_t {
 	const xmpp_ctx_t *ctx;
 
@@ -44,7 +48,7 @@ struct _thread_t {
 	const xmpp_ctx_t *ctx;
 
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	HANDLE thread;
 #else
 	pthread_t *thread;
 #endif
@@ -54,7 +58,7 @@ struct _xmpp_sem_t {
 	const xmpp_ctx_t *ctx;
 
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	HANDLE sem;
 #else
 	sem_t *sem;
 #endif
@@ -71,7 +75,7 @@ xmpp_sem_t *xmpp_sem_create(const xmpp_ctx_t *ctx, unsigned int value)
 		return NULL;
 
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	sem->sem = CreateSemaphore(NULL, value, MAX_SEM_COUNT, NULL);
 #else
 	sem->sem = xmpp_alloc(ctx, sizeof(*sem->sem));
 	if (sem->sem && sem_init(sem->sem, 0, value)) {
@@ -93,7 +97,7 @@ xmpp_sem_t *xmpp_sem_create(const xmpp_ctx_t *ctx, unsigned int value)
 void xmpp_sem_wait(xmpp_sem_t *sem)
 {
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	WaitForSingleObject(sem->sem, INFINITE);
 #else
 	sem_wait(sem->sem);
 #endif
@@ -104,7 +108,7 @@ int xmpp_sem_trywait(xmpp_sem_t *sem)
 	int ret;
 
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	ret = WaitForSingleObject(sem->sem, 0L) == WAIT_OBJECT_0;
 #else
 	ret = sem_trywait(sem->sem) == 0;
 #endif
@@ -115,7 +119,7 @@ int xmpp_sem_trywait(xmpp_sem_t *sem)
 void xmpp_sem_post(xmpp_sem_t *sem)
 {
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	ReleaseSemaphore(sem->sem, 1, NULL);
 #else
 	sem_post(sem->sem);
 #endif
@@ -132,7 +136,7 @@ int xmpp_sem_destroy(xmpp_sem_t *sem)
 		return 0;
 
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	ret = CloseHandle(sem->sem);
 #else
 	if (sem->sem) {
 		ret = sem_destroy(sem->sem) == 0;
@@ -158,7 +162,8 @@ thread_t *thread_create(const xmpp_ctx_t *ctx, thread_func_t start_func, void *a
 		return NULL;
 
 #ifdef _WIN32
-# error "win32 is not supported for now"
+	thread->thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)start_func,
+				      arg, 0, NULL);
 #else
 	thread->thread = xmpp_alloc(ctx, sizeof(*thread->thread));
 	if (thread->thread &&

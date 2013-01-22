@@ -242,7 +242,7 @@ int mutex_lock(mutex_t *mutex)
 	int ret;
 
 #ifdef _WIN32
-	ret = WaitForSingleObject(mutex->mutex, INFINITE) == 0;
+	ret = WaitForSingleObject(mutex->mutex, INFINITE) == WAIT_OBJECT_0;
 #else
 	ret = pthread_mutex_lock(mutex->mutex) == 0;
 #endif

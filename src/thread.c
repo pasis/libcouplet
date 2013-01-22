@@ -99,6 +99,19 @@ void xmpp_sem_wait(xmpp_sem_t *sem)
 #endif
 }
 
+int xmpp_sem_trywait(xmpp_sem_t *sem)
+{
+	int ret;
+
+#ifdef _WIN32
+# error "win32 is not supported for now"
+#else
+	ret = sem_trywait(sem->sem) == 0;
+#endif
+
+	return ret;
+}
+
 void xmpp_sem_post(xmpp_sem_t *sem)
 {
 #ifdef _WIN32

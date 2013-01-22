@@ -62,7 +62,7 @@ struct _xmpp_sem_t {
 
 /* semaphore functions */
 
-xmpp_sem_t *xmpp_sem_create(const xmpp_ctx_t *ctx)
+xmpp_sem_t *xmpp_sem_create(const xmpp_ctx_t *ctx, unsigned int value)
 {
 	xmpp_sem_t *sem;
 
@@ -74,7 +74,7 @@ xmpp_sem_t *xmpp_sem_create(const xmpp_ctx_t *ctx)
 # error "win32 is not supported for now"
 #else
 	sem->sem = xmpp_alloc(ctx, sizeof(*sem->sem));
-	if (sem->sem && sem_init(sem->sem, 0, 0)) {
+	if (sem->sem && sem_init(sem->sem, 0, value)) {
 		/* semaphore is allocated but not initialized */
 		xmpp_free(ctx, sem->sem);
 		sem->sem = NULL;

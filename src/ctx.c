@@ -415,7 +415,7 @@ xmpp_ctx_t *xmpp_ctx_new(const xmpp_mem_t * const mem,
 	ctx->connlist = list_init(ctx);
 	if (!ctx->connlist)
 		goto out_free_ctx;
-	ctx->send_queue_sem = xmpp_sem_create(ctx);
+	ctx->send_queue_sem = xmpp_sem_create(ctx, 0);
 	if (!ctx->send_queue_sem)
 		goto out_free_connlist;
 

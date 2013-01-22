@@ -7,5 +7,5 @@ Name: libcouplet
 Description: Fork of libstrophe - a simple, lightweight C library for writing XMPP clients
 Requires: 
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -lcouplet
+Libs: -L${libdir} -lcouplet @LIBS@
 Cflags: -I${includedir}

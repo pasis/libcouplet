@@ -22,13 +22,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <pthread.h>
-#include <semaphore.h>
-#endif
-
 #include "couplet.h"
 
 typedef struct _mutex_t mutex_t;

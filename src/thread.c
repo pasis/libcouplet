@@ -24,6 +24,8 @@
 #include <windows.h>
 #else
 #include <pthread.h>
+#include <semaphore.h>
+#include <time.h>
 #endif
 
 #include "couplet.h"
@@ -111,6 +113,24 @@ int xmpp_sem_trywait(xmpp_sem_t *sem)
 	ret = WaitForSingleObject(sem->sem, 0L) == WAIT_OBJECT_0;
 #else
 	ret = sem_trywait(sem->sem) == 0;
+#endif
+
+	return ret;
+}
+
+int xmpp_sem_timedwait(xmpp_sem_t *sem, uint64_t ns)
+{
+	int ret;
+
+#ifdef _WIN32
+# error not implemented
+#else
+	struct timespec timeout;
+	clock_gettime(CLOCK_REALTIME, &timeout);
+	ns += timeout.tv_nsec;
+	timeout.tv_sec = ns / 1000000000;
+	timeout.tv_nsec = ns % 1000000000;
+	ret = sem_timedwait(sem->sem, &timeout) == 0;
 #endif
 
 	return ret;

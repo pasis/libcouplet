@@ -17,6 +17,8 @@ AC_CHECK_LIB(pthread, pthread_create, [],
     [AC_MSG_ERROR([pthread support is required])])
 AC_CHECK_LIB(resolv, res_query, [],
     [AC_CHECK_LIB(resolv, __res_query, [], [AC_MSG_ERROR([libresolv is not found])])])
+AC_CHECK_LIB(rt, clock_gettime, [],
+    [AC_MSG_ERROR([librt is required])])
 
 if test "x$with_libxml2" = xyes; then
     PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7], [],

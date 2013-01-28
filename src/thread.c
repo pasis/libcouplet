@@ -123,7 +123,8 @@ int xmpp_sem_timedwait(xmpp_sem_t *sem, uint64_t ns)
 	int ret;
 
 #ifdef _WIN32
-# error not implemented
+	DWORD ms = ns / 1000000;
+	ret = WaitForSingleObject(sem->sem, ms) == WAIT_OBJECT_0;
 #else
 	struct timespec timeout;
 	clock_gettime(CLOCK_REALTIME, &timeout);

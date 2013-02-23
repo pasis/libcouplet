@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-#include <couplet.h>
+#include <libcouplet/couplet.h>
 
 
 /* define a handler for connection events */

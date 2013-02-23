@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "common.h"
 
 static int log_called = 0;

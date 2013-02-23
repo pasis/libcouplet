@@ -19,7 +19,7 @@
 #ifndef __LIBSTROPHE_STROPHEPP_H__
 #define __LIBSTROPHE_STROPHEPP_H__
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 
 namespace XMPP {
     class Context {

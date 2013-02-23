@@ -16,7 +16,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "common.h"
 #include "hash.h"
 

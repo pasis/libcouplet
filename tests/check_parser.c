@@ -16,7 +16,7 @@
 
 #include <check.h>
 
-#include <couplet.h>
+#include <libcouplet/couplet.h>
 #include "parser.h"
 
 #include "test.h"

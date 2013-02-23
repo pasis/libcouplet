@@ -1,5 +1,7 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
+AM_CFLAGS += -I$(top_srcdir)/include -Wall
+
 COUPLET_LIBS = libcouplet.la
 
 pkgconfigdir = $(libdir)/pkgconfig
@@ -22,8 +24,8 @@ else
 libcouplet_la_SOURCES += src/parser_libxml2.c
 endif
 
-include_HEADERS = couplet.h
-noinst_HEADERS = coupletpp.h
+pkginclude_HEADERS = include/libcouplet/couplet.h
+noinst_HEADERS = include/libcouplet/coupletpp.h
 
 EXTRA_DIST = docs
 

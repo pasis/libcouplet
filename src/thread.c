@@ -28,7 +28,7 @@
 #include <time.h>
 #endif
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "common.h"
 #include "thread.h"
 

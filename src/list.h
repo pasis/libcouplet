@@ -18,7 +18,7 @@
 #ifndef __LIBCOUPLET_LIST_H__
 #define __LIBCOUPLET_LIST_H__
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "thread.h"
 
 struct _list_t {

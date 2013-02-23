@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "common.h"
 #include "hash.h"
 

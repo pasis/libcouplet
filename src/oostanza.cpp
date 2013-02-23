@@ -12,7 +12,7 @@
 **  distribution.
 */
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "coupletpp.h"
 
 using namespace XMPP;

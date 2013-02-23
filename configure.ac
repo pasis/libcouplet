@@ -39,7 +39,7 @@ else
 fi
 
 LIBS="$LIBS $openssl_LIBS"
-AM_CFLAGS="$AM_CFLAGS $openssl_CFLAGS -I. -Wall"
+AM_CFLAGS="$AM_CFLAGS $openssl_CFLAGS"
 
 AC_MSG_NOTICE([libcouplet will use the $PARSER_NAME XML parser])
 AC_SEARCH_LIBS([socket], [socket])

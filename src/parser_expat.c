@@ -22,7 +22,7 @@
 
 #include <expat.h>
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "common.h"
 #include "parser.h"
 

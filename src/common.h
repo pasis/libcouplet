@@ -26,7 +26,7 @@
 #endif
 
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "sock.h"
 #include "tls.h"
 #include "hash.h"

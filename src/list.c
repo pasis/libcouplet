@@ -16,7 +16,7 @@
  */
 
 #include "list.h"
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "common.h"
 
 /** Create new list.

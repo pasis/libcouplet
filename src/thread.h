@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 
 typedef struct _mutex_t mutex_t;
 typedef struct _thread_t thread_t;

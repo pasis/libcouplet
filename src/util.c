@@ -27,7 +27,7 @@
 #include <stdint.h>
 #endif
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 #include "common.h"
 #include "util.h"
 

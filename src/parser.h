@@ -19,6 +19,6 @@
 #ifndef __LIBSTROPHE_PARSER_H__
 #define __LIBSTROPHE_PARSER_H__
 
-#include "couplet.h"
+#include <libcouplet/couplet.h>
 
 #endif /* __LIBSTROPHE_PARSER_H__ */

@@ -1,10 +1,11 @@
 AC_INIT([libcouplet], [0.8], [pasis.ua@gmail.com])
-AM_INIT_AUTOMAKE
-AC_CONFIG_FILES([Makefile libcouplet.pc])
+AM_INIT_AUTOMAKE([foreign])
+LT_INIT
 
 AC_PROG_CC
 AM_PROG_CC_C_O
-LT_INIT
+
+AC_CONFIG_FILES([Makefile libcouplet.pc])
 
 AC_ARG_WITH([libxml2],
             [AS_HELP_STRING([--with-libxml2], [use libxml2 for XML parsing])])

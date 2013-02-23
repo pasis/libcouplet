@@ -49,6 +49,7 @@
 #include <string.h>
 
 #include <libcouplet/couplet.h>
+
 #include "common.h"
 #include "util.h"
 #include "thread.h"

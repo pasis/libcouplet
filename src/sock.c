@@ -41,8 +41,9 @@
 #include <resolv.h>
 #endif
 
-#include "sock.h"
 #include <libcouplet/couplet.h>
+
+#include "sock.h"
 
 void sock_initialize(void)
 {

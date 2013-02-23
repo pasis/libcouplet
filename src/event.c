@@ -48,6 +48,7 @@
 #endif
 
 #include <libcouplet/couplet.h>
+
 #include "common.h"
 #include "parser.h"
 #include "thread.h"

@@ -25,8 +25,8 @@
 #include <stdint.h>
 #endif
 
-
 #include <libcouplet/couplet.h>
+
 #include "sock.h"
 #include "tls.h"
 #include "hash.h"

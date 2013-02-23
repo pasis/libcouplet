@@ -19,6 +19,7 @@
 #define __LIBCOUPLET_LIST_H__
 
 #include <libcouplet/couplet.h>
+
 #include "thread.h"
 
 struct _list_t {

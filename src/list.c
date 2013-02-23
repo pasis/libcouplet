@@ -15,9 +15,10 @@
  *  General list routines
  */
 
-#include "list.h"
 #include <libcouplet/couplet.h>
+
 #include "common.h"
+#include "list.h"
 
 /** Create new list.
  *

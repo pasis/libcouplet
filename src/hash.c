@@ -20,6 +20,7 @@
 #include <string.h>
 
 #include <libcouplet/couplet.h>
+
 #include "common.h"
 #include "hash.h"
 

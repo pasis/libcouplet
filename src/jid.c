@@ -19,6 +19,7 @@
 #include <string.h>
 
 #include <libcouplet/couplet.h>
+
 #include "common.h"
 
 /** Create a JID string from component parts node, domain, and resource.

@@ -28,6 +28,7 @@
 #endif
 
 #include <libcouplet/couplet.h>
+
 #include "common.h"
 #include "util.h"
 

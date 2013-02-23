@@ -29,6 +29,7 @@
 #endif
 
 #include <libcouplet/couplet.h>
+
 #include "common.h"
 #include "thread.h"
 

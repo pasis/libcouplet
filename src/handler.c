@@ -30,6 +30,7 @@
 #endif
 
 #include <libcouplet/couplet.h>
+
 #include "common.h"
 #include "list.h"
 

@@ -14,7 +14,7 @@ libcouplet_la_SOURCES = src/auth.c src/conn.c src/ctx.c \
 	src/jid.c src/md5.c src/sasl.c src/sha1.c \
 	src/snprintf.c src/sock.c src/stanza.c src/thread.c \
 	src/tls_openssl.c src/util.c src/list.c \
-	src/common.h src/hash.h src/md5.h src/ostypes.h src/parser.h \
+	src/common.h src/hash.h src/md5.h src/ostypes.h \
 	src/sasl.h src/sha1.h src/sock.h src/thread.h src/tls.h src/util.h \
 	src/list.h
 
@@ -24,7 +24,7 @@ else
 libcouplet_la_SOURCES += src/parser_libxml2.c
 endif
 
-pkginclude_HEADERS = include/libcouplet/couplet.h
+pkginclude_HEADERS = include/libcouplet/couplet.h include/libcouplet/parser.h
 noinst_HEADERS = include/libcouplet/coupletpp.h
 
 EXTRA_DIST = docs

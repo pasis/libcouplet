@@ -24,10 +24,10 @@
 #include <string.h>
 
 #include <libcouplet/couplet.h>
+#include <libcouplet/parser.h>
 
 #include "common.h"
 #include "util.h"
-#include "parser.h"
 #include "thread.h"
 #include "list.h"
 

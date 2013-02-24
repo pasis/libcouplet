@@ -26,12 +26,12 @@
 #endif
 
 #include <libcouplet/couplet.h>
+#include <libcouplet/parser.h>
 
 #include "sock.h"
 #include "tls.h"
 #include "hash.h"
 #include "util.h"
-#include "parser.h"
 #include "thread.h"
 #include "list.h"
 

@@ -23,9 +23,9 @@
 #include <expat.h>
 
 #include <libcouplet/couplet.h>
+#include <libcouplet/parser.h>
 
 #include "common.h"
-#include "parser.h"
 
 struct _parser_t {
     xmpp_ctx_t *ctx;

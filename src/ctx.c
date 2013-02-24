@@ -419,9 +419,14 @@ xmpp_ctx_t *xmpp_ctx_new(const xmpp_mem_t * const mem,
 	ctx->send_queue_sem = xmpp_sem_create(ctx, 0);
 	if (!ctx->send_queue_sem)
 		goto out_free_connlist;
+	ctx->event_loop_sem = xmpp_sem_create(ctx, 0);
+	if (!ctx->event_loop_sem)
+		goto out_free_send_queue_sem;
 
 	return ctx;
 
+out_free_send_queue_sem:
+	xmpp_sem_destroy(ctx->send_queue_sem);
 out_free_connlist:
 	list_destroy(ctx->connlist);
 out_free_ctx:
@@ -439,6 +444,7 @@ void xmpp_ctx_free(xmpp_ctx_t * const ctx)
 {
 	list_destroy(ctx->connlist);
 	xmpp_sem_destroy(ctx->send_queue_sem);
+	xmpp_sem_destroy(ctx->event_loop_sem);
 
 	/* mem and log are owned by their suppliers */
 	xmpp_free(ctx, ctx); /* pull the hole in after us */

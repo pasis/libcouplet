@@ -54,7 +54,10 @@ struct _xmpp_ctx_t {
 
 	xmpp_loop_status_t loop_status;
 	list_head_t *connlist;
+	/* locks sending thread when there isn't pending packet in the queue */
 	xmpp_sem_t *send_queue_sem;
+	/* event loop runs until event_loop_sem becomes unlocked */
+	xmpp_sem_t *event_loop_sem;
 };
 
 

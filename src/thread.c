@@ -130,7 +130,7 @@ int xmpp_sem_timedwait(xmpp_sem_t *sem, uint64_t ns)
 	struct timespec timeout;
 	clock_gettime(CLOCK_REALTIME, &timeout);
 	ns += timeout.tv_nsec;
-	timeout.tv_sec = ns / 1000000000;
+	timeout.tv_sec += ns / 1000000000;
 	timeout.tv_nsec = ns % 1000000000;
 	ret = sem_timedwait(sem->sem, &timeout) == 0;
 #endif

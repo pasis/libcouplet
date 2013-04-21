@@ -137,6 +137,7 @@ uint64_t handler_fire_timed(xmpp_ctx_t * const ctx)
 	xmpp_conn_t *conn;
 	int ret, fired;
 	uint64_t elapsed, min;
+	uint64_t stamp;
 
 	min = (uint64_t)(-1);
 
@@ -155,11 +156,12 @@ uint64_t handler_fire_timed(xmpp_ctx_t * const ctx)
 			if (handitem->user_handler && !conn->authenticated)
 				goto loop_handlers_continue;
 
-			elapsed = time_elapsed(handitem->last_stamp, time_stamp());
+			stamp = time_stamp();
+			elapsed = time_elapsed(handitem->last_stamp, stamp);
 			if (elapsed >= handitem->period) {
 				/* fire! */
 				fired = 1;
-				handitem->last_stamp = time_stamp();
+				handitem->last_stamp = stamp;
 				ret = ((xmpp_timed_handler)handitem->handler)(conn, handitem->userdata);
 			} else if (min > (handitem->period - elapsed))
 				min = handitem->period - elapsed;

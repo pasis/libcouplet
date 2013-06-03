@@ -9,13 +9,38 @@ pkgconfigdir = $(libdir)/pkgconfig
 ## Main build targets
 lib_LTLIBRARIES = libcouplet.la
 
-libcouplet_la_SOURCES = src/auth.c src/conn.c src/ctx.c \
-	src/event.c src/handler.c src/hash.c \
-	src/jid.c src/md5.c src/sasl.c src/sha1.c \
-	src/snprintf.c src/sock.c src/stanza.c src/thread.c \
-	src/tls_openssl.c src/util.c src/list.c \
-	src/common.h src/hash.h src/md5.h src/ostypes.h \
-	src/sasl.h src/sha1.h src/sock.h src/thread.h src/tls.h src/util.h \
+libcouplet_la_SOURCES = \
+	src/auth.c \
+	src/conn.c \
+	src/ctx.c \
+	src/event.c \
+	src/handler.c \
+	src/hash.c \
+	src/hmac.c \
+	src/jid.c \
+	src/md5.c \
+	src/sasl.c \
+	src/scram.c \
+	src/sha1.c \
+	src/snprintf.c \
+	src/sock.c \
+	src/stanza.c \
+	src/thread.c \
+	src/tls_openssl.c \
+	src/util.c \
+	src/list.c \
+	src/common.h \
+	src/hash.h \
+	src/hmac.h \
+	src/md5.h \
+	src/ostypes.h \
+	src/sasl.h \
+	src/scram.h \
+	src/sha1.h \
+	src/sock.h \
+	src/thread.h \
+	src/tls.h \
+	src/util.h \
 	src/list.h
 
 if PARSER_EXPAT

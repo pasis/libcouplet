@@ -80,7 +80,8 @@ A million repetitions of "a"
   34AA973C D4C4DAA4 F61EEB2B DBAD2731 6534016F
 */
 
-/* #define SHA1HANDSOFF  */
+/* XXX: this define is required for current implementation of SCRAM-SHA-1 */
+#define SHA1HANDSOFF
 
 #include <stdio.h>
 #include <string.h>

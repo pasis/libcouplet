@@ -345,7 +345,12 @@ char *sasl_digest_md5(xmpp_ctx_t *ctx, const char *challenge,
 	MD5Final(digest, &MD5);
 
 	response = xmpp_alloc(ctx, 32 + 1);
-	/** @TODO check 'response' for NULL */
+	if (!response) {
+		xmpp_free(ctx, node);
+		xmpp_free(ctx, domain);
+		hash_release(table);
+		return NULL;
+	}
 	_digest_to_hex((char *)digest, hex);
 	memcpy(response, hex, 32);
 	response[32] = '\0';
@@ -456,7 +461,10 @@ char *sasl_scram_sha1(xmpp_ctx_t *ctx, const char *challenge,
 		goto out_response;
 	}
 
-	/* TODO: buffer overflow */
+	if (strlen(response) + strlen(sign_b64) + 3 + 1 > response_len) {
+		xmpp_free(ctx, sign_b64);
+		goto out_response;
+	}
 	strcat(response, ",p=");
 	strcat(response, sign_b64);
 	xmpp_free(ctx, sign_b64);

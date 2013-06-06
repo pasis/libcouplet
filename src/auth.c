@@ -334,7 +334,6 @@ static int _handle_sasl_result(xmpp_conn_t * const conn,
 }
 
 /* handle the challenge phase of digest auth */
-/* TODO: fix memory leaks in this function */
 static int _handle_digestmd5_challenge(xmpp_conn_t * const conn,
 			      xmpp_stanza_t * const stanza,
 			      void * const userdata)
@@ -352,6 +351,7 @@ static int _handle_digestmd5_challenge(xmpp_conn_t * const conn,
 	text = xmpp_stanza_get_text(stanza);
 	response = sasl_digest_md5(conn->ctx, text, conn->jid, conn->pass);
 	if (!response) {
+	    xmpp_free(conn->ctx, text);
 	    disconnect_mem_error(conn);
 	    return 0;
 	}
@@ -359,6 +359,7 @@ static int _handle_digestmd5_challenge(xmpp_conn_t * const conn,
 
 	auth = xmpp_stanza_new(conn->ctx);
 	if (!auth) {
+	    xmpp_free(conn->ctx, response);
 	    disconnect_mem_error(conn);
 	    return 0;
 	}
@@ -367,6 +368,8 @@ static int _handle_digestmd5_challenge(xmpp_conn_t * const conn,
 
 	authdata = xmpp_stanza_new(conn->ctx);
 	if (!authdata) {
+	    xmpp_free(conn->ctx, response);
+	    xmpp_stanza_release(auth);
 	    disconnect_mem_error(conn);
 	    return 0;
 	}
@@ -442,9 +445,11 @@ static int _handle_scramsha1_challenge(xmpp_conn_t * const conn,
 
 	challenge = (char *)base64_decode(conn->ctx, text, strlen(text));
 	if (!challenge) {
+	    xmpp_free(conn->ctx, text);
 	    disconnect_mem_error(conn);
 	    return 0;
 	}
+	xmpp_free(conn->ctx, text);
 
 	response = sasl_scram_sha1(conn->ctx, challenge, (char *)userdata,
 	                           conn->jid, conn->pass);
